@@ -1,0 +1,723 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gerenciador de Tarefas do Condomínio</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #3498db;
+            --accent-color: #e74c3c;
+            --light-color: #ecf0f1;
+            --dark-color: #2c3e50;
+            --success-color: #27ae60;
+            --warning-color: #f39c12;
+        }
+        
+        body {
+            background-color: #f5f7fa;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin-top: 30px;
+            margin-bottom: 50px;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+        
+        .card {
+            border: none;
+            border-radius: 12px;
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.08);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            overflow: hidden;
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 20px rgba(0, 0, 0, 0.12);
+        }
+        
+        .card-header {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            padding: 15px 20px;
+            font-weight: 600;
+        }
+        
+        .btn-primary {
+            background-color: var(--secondary-color);
+            border-color: var(--secondary-color);
+            font-weight: 500;
+            letter-spacing: 0.5px;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-primary:hover {
+            background-color: #2980b9;
+            border-color: #2980b9;
+            transform: translateY(-2px);
+        }
+        
+        .btn-outline-primary {
+            color: var(--secondary-color);
+            border-color: var(--secondary-color);
+        }
+        
+        .btn-outline-primary:hover {
+            background-color: var(--secondary-color);
+            color: white;
+        }
+        
+        .table {
+            margin-bottom: 0;
+        }
+        
+        .table th {
+            background-color: var(--light-color);
+            color: var(--dark-color);
+            font-weight: 600;
+            border-top: none;
+        }
+        
+        .table-hover tbody tr:hover {
+            background-color: rgba(52, 152, 219, 0.1);
+        }
+        
+        .badge {
+            padding: 6px 10px;
+            font-weight: 500;
+            font-size: 0.85rem;
+            border-radius: 8px;
+        }
+        
+        .bg-success {
+            background-color: var(--success-color) !important;
+        }
+        
+        .bg-warning {
+            background-color: var(--warning-color) !important;
+            color: white !important;
+        }
+        
+        .nav-tabs {
+            border-bottom: 2px solid #dee2e6;
+        }
+        
+        .nav-tabs .nav-link {
+            color: var(--dark-color);
+            font-weight: 500;
+            border: none;
+            padding: 12px 20px;
+            position: relative;
+        }
+        
+        .nav-tabs .nav-link.active {
+            color: var(--secondary-color);
+            background-color: transparent;
+            border-bottom: 3px solid var(--secondary-color);
+        }
+        
+        .nav-tabs .nav-link:hover:not(.active) {
+            color: var(--secondary-color);
+        }
+        
+        .tab-content {
+            border-radius: 0 0 10px 10px;
+            background-color: white;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+        }
+        
+        .modal-content {
+            border: none;
+            border-radius: 12px;
+            overflow: hidden;
+        }
+        
+        .modal-header {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+        }
+        
+        .form-control, .form-select {
+            border-radius: 8px;
+            padding: 10px 15px;
+            border: 1px solid #ced4da;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .form-control:focus, .form-select:focus {
+            border-color: var(--secondary-color);
+            box-shadow: 0 0 0 0.25rem rgba(52, 152, 219, 0.25);
+        }
+        
+        .comentario-item {
+            border-bottom: 1px solid #eee;
+            padding: 12px 0;
+            display: flex;
+            align-items: center;
+        }
+        
+        .comentario-item:last-child {
+            border-bottom: none;
+        }
+        
+        .comentario-item::before {
+            content: "\f075";
+            font-family: "Font Awesome 6 Free";
+            font-weight: 900;
+            color: var(--secondary-color);
+            margin-right: 12px;
+            font-size: 1.1rem;
+        }
+        
+        .btn-action {
+            width: 36px;
+            height: 36px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            margin: 0 3px;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-action:hover {
+            transform: scale(1.1);
+        }
+        
+        .status-badge {
+            min-width: 100px;
+            display: inline-block;
+            text-align: center;
+        }
+        
+        .empty-state {
+            text-align: center;
+            padding: 40px 20px;
+            color: #7f8c8d;
+        }
+        
+        .empty-state i {
+            font-size: 3rem;
+            color: #bdc3c7;
+            margin-bottom: 15px;
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                margin-top: 15px;
+            }
+            
+            .header {
+                padding: 15px;
+            }
+            
+            .table-responsive {
+                border-radius: 10px;
+                overflow: hidden;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="d-flex justify-content-between align-items-center">
+                <div>
+                    <h1 class="h3 mb-1"><i class="fas fa-building me-2"></i> Gerenciador de Tarefas</h1>
+                    <p class="mb-0 opacity-75">Controle de manutenções e serviços do condomínio</p>
+                </div>
+                <button type="button" class="btn btn-light btn-primary" data-bs-toggle="modal" data-bs-target="#novaTarefaModal" id="btn-nova-tarefa">
+                    <i class="fas fa-plus me-2"></i> Nova Tarefa
+                </button>
+            </div>
+        </div>
+
+        <div class="card mb-4">
+            <div class="card-header d-flex justify-content-between align-items-center">
+                <h2 class="h5 mb-0"><i class="fas fa-tasks me-2"></i> Tarefas Ativas</h2>
+                <div class="d-flex">
+                    <button class="btn btn-sm btn-light me-2">
+                        <i class="fas fa-filter me-1"></i> Filtrar
+                    </button>
+                    <button class="btn btn-sm btn-light">
+                        <i class="fas fa-sort me-1"></i> Ordenar
+                    </button>
+                </div>
+            </div>
+            <div class="card-body p-0">
+                <div class="table-responsive">
+                    <table class="table table-hover mb-0">
+                        <thead>
+                            <tr>
+                                <th style="width: 25%;">Tarefa</th>
+                                <th style="width: 15%;">Custo</th>
+                                <th style="width: 15%;">Início</th>
+                                <th style="width: 15%;">Conclusão</th>
+                                <th style="width: 15%;">Status</th>
+                                <th style="width: 15%;" class="text-end">Ações</th>
+                            </tr>
+                        </thead>
+                        <tbody id="lista-tarefas">
+                            <!-- Tarefas serão inseridas aqui via JavaScript -->
+                            <tr id="empty-state" class="d-none">
+                                <td colspan="6">
+                                    <div class="empty-state py-5">
+                                        <i class="fas fa-clipboard-list"></i>
+                                        <h4 class="h5 mt-3">Nenhuma tarefa cadastrada</h4>
+                                        <p class="mb-0">Clique no botão "Nova Tarefa" para começar</p>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header">
+                <ul class="nav nav-tabs card-header-tabs" id="myTab" role="tablist">
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link active" id="comentarios-tab" data-bs-toggle="tab" data-bs-target="#comentarios-gerais" type="button" role="tab" aria-controls="comentarios-gerais" aria-selected="true">
+                            <i class="fas fa-comments me-2"></i>Comentários Gerais
+                        </button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link" id="relatorio-tab" data-bs-toggle="tab" data-bs-target="#relatorio" type="button" role="tab" aria-controls="relatorio" aria-selected="false">
+                            <i class="fas fa-chart-pie me-2"></i>Relatórios
+                        </button>
+                    </li>
+                </ul>
+            </div>
+            <div class="card-body">
+                <div class="tab-content" id="myTabContent">
+                    <div class="tab-pane fade show active" id="comentarios-gerais" role="tabpanel" aria-labelledby="comentarios-tab">
+                        <div id="comentarios-default">
+                            <div class="text-center py-4">
+                                <i class="fas fa-comment-slash text-muted mb-3" style="font-size: 2.5rem;"></i>
+                                <h5 class="h6">Selecione uma tarefa para ver e adicionar comentários</h5>
+                                <p class="text-muted small">Clique no ícone de comentários em qualquer tarefa</p>
+                            </div>
+                        </div>
+                        <div id="comentarios-area" class="d-none">
+                            <h5 class="mb-3"><i class="fas fa-comment-dots me-2"></i> <span id="tarefa-selecionada-nome"></span></h5>
+                            <div id="comentarios-lista" class="mb-4"></div>
+                            <form id="form-comentario" class="mt-3">
+                                <input type="hidden" id="comentario-tarefa-id">
+                                <div class="input-group">
+                                    <input type="text" id="novo-comentario" class="form-control" placeholder="Digite seu comentário..." required>
+                                    <button type="submit" class="btn btn-primary">
+                                        <i class="fas fa-paper-plane me-1"></i> Enviar
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="tab-pane fade" id="relatorio" role="tabpanel" aria-labelledby="relatorio-tab">
+                        <div class="text-center py-4">
+                            <i class="fas fa-chart-bar text-muted mb-3" style="font-size: 2.5rem;"></i>
+                            <h5 class="h6">Relatórios e estatísticas</h5>
+                            <p class="text-muted small">Em breve - análise de custos e desempenho</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Nova Tarefa -->
+    <div class="modal fade" id="novaTarefaModal" tabindex="-1" aria-labelledby="novaTarefaModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="novaTarefaModalLabel"><i class="fas fa-plus-circle me-2"></i> Nova Tarefa</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="form-tarefa">
+                        <input type="hidden" id="tarefa-id">
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="nome-tarefa" class="form-label"><i class="fas fa-heading me-2"></i>Nome da Tarefa</label>
+                                <input type="text" class="form-control" id="nome-tarefa" placeholder="Ex: Pintura do prédio" required>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="custo-tarefa" class="form-label"><i class="fas fa-dollar-sign me-2"></i>Custo (R$)</label>
+                                <div class="input-group">
+                                    <span class="input-group-text">R$</span>
+                                    <input type="number" class="form-control" id="custo-tarefa" step="0.01" placeholder="0,00" required>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="data-inicio" class="form-label"><i class="fas fa-calendar-day me-2"></i>Data de Início</label>
+                                <input type="date" class="form-control" id="data-inicio" required>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="data-conclusao" class="form-label"><i class="fas fa-calendar-check me-2"></i>Data de Conclusão</label>
+                                <input type="date" class="form-control" id="data-conclusao" required>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="status-tarefa" class="form-label"><i class="fas fa-info-circle me-2"></i>Status</label>
+                            <select class="form-select" id="status-tarefa">
+                                <option value="Em Andamento">Em Andamento</option>
+                                <option value="Concluída">Concluída</option>
+                                <option value="Pendente">Pendente</option>
+                                <option value="Cancelada">Cancelada</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="descricao-tarefa" class="form-label"><i class="fas fa-align-left me-2"></i>Descrição (Opcional)</label>
+                            <textarea class="form-control" id="descricao-tarefa" rows="3" placeholder="Detalhes sobre a tarefa..."></textarea>
+                        </div>
+                        <div class="d-flex justify-content-end mt-4">
+                            <button type="button" class="btn btn-outline-secondary me-3" data-bs-dismiss="modal">Cancelar</button>
+                            <button type="submit" class="btn btn-primary">
+                                <i class="fas fa-save me-2"></i> Salvar Tarefa
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Comentários -->
+    <div class="modal fade" id="comentariosModal" tabindex="-1" aria-labelledby="comentariosModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="comentariosModalLabel"><i class="fas fa-comments me-2"></i> Comentários</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <h6 id="nome-tarefa-comentario" class="mb-4"><i class="fas fa-tasks me-2"></i> <span id="tarefa-nome-modal"></span></h6>
+                    <div class="comentarios-container" style="max-height: 300px; overflow-y: auto;">
+                        <ul id="lista-comentarios" class="list-unstyled mb-4">
+                            <!-- Comentários serão inseridos aqui -->
+                        </ul>
+                    </div>
+                    <form id="form-comentario-modal" class="mt-3">
+                        <input type="hidden" id="comentario-tarefa-id-modal">
+                        <div class="input-group">
+                            <input type="text" id="novo-comentario-modal" class="form-control" placeholder="Escreva um comentário..." required>
+                            <button type="submit" class="btn btn-primary">
+                                <i class="fas fa-paper-plane"></i>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Código JavaScript para interagir com o backend
+document.addEventListener('DOMContentLoaded', () => {
+    const listaTarefas = document.getElementById('lista-tarefas');
+    const formTarefa = document.getElementById('form-tarefa');
+    const modalTitulo = document.getElementById('novaTarefaModalLabel');
+    const tarefaIdInput = document.getElementById('tarefa-id');
+    const nomeInput = document.getElementById('nome-tarefa');
+    const custoInput = document.getElementById('custo-tarefa');
+    const dataInicioInput = document.getElementById('data-inicio');
+    const dataConclusaoInput = document.getElementById('data-conclusao');
+    const statusSelect = document.getElementById('status-tarefa');
+    const descricaoInput = document.getElementById('descricao-tarefa');
+    const btnNovaTarefa = document.getElementById('btn-nova-tarefa');
+    const emptyState = document.getElementById('empty-state');
+
+    // Funções para manipular a API de Tarefas
+    // ----------------------------------------
+    async function fetchTarefas() {
+        try {
+            const response = await fetch('/api/tarefas');
+            const tarefas = await response.json();
+            renderTarefas(tarefas);
+
+            if (tarefas.length === 0) {
+                emptyState.classList.remove('d-none');
+            } else {
+                emptyState.classList.add('d-none');
+            }
+        } catch (error) {
+            console.error('Erro ao buscar tarefas:', error);
+            showAlert('danger', 'Erro ao carregar tarefas. Tente novamente.');
+        }
+    }
+
+    function renderTarefas(tarefas) {
+        listaTarefas.innerHTML = '';
+        if (tarefas.length === 0) {
+            emptyState.classList.remove('d-none');
+        } else {
+            emptyState.classList.add('d-none');
+            tarefas.forEach(tarefa => {
+                const row = document.createElement('tr');
+                
+                // Determina a classe e o ícone do badge de status
+                let statusBadgeClass, statusIcon;
+                switch(tarefa.status) {
+                    case 'Concluída':
+                        statusBadgeClass = 'bg-success';
+                        statusIcon = 'fa-check-circle';
+                        break;
+                    case 'Pendente':
+                        statusBadgeClass = 'bg-secondary';
+                        statusIcon = 'fa-clock';
+                        break;
+                    case 'Cancelada':
+                        statusBadgeClass = 'bg-danger';
+                        statusIcon = 'fa-times-circle';
+                        break;
+                    default: // Em Andamento
+                        statusBadgeClass = 'bg-warning';
+                        statusIcon = 'fa-spinner';
+                        break;
+                }
+                
+                // Formata a data para pt-BR
+                const formatDate = (dateString) => {
+                    if (!dateString) return '-';
+                    const options = { day: '2-digit', month: '2-digit', year: 'numeric' };
+                    return new Date(dateString).toLocaleDateString('pt-BR', options);
+                };
+
+                row.innerHTML = `
+                    <td>
+                        <strong>${tarefa.nome}</strong>
+                        ${tarefa.descricao ? `<small class="d-block text-muted">${tarefa.descricao.substring(0, 50)}${tarefa.descricao.length > 50 ? '...' : ''}</small>` : ''}
+                    </td>
+                    <td>R$ ${tarefa.custo ? tarefa.custo.toFixed(2).replace('.', ',') : '0,00'}</td>
+                    <td>${formatDate(tarefa.data_inicio)}</td>
+                    <td>${formatDate(tarefa.data_conclusao)}</td>
+                    <td>
+                        <span class="badge ${statusBadgeClass} status-badge">
+                            <i class="fas ${statusIcon} me-1"></i> ${tarefa.status}
+                        </span>
+                    </td>
+                    <td class="text-end">
+                        <button class="btn btn-sm btn-action btn-info editar-btn" data-bs-toggle="modal" data-bs-target="#novaTarefaModal" data-id="${tarefa.id}" title="Editar">
+                            <i class="fas fa-edit"></i>
+                        </button>
+                        <button class="btn btn-sm btn-action btn-danger excluir-btn" data-id="${tarefa.id}" title="Excluir">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                        <button class="btn btn-sm btn-action btn-secondary comentarios-btn" data-bs-toggle="modal" data-bs-target="#comentariosModal" data-id="${tarefa.id}" title="Comentários">
+                            <i class="fas fa-comment"></i> ${tarefa.comentarios ? tarefa.comentarios.length : 0}
+                        </button>
+                    </td>
+                `;
+                listaTarefas.appendChild(row);
+            });
+        }
+        
+        // Adiciona os eventos de clique para os botões de ação
+        document.querySelectorAll('.editar-btn').forEach(btn => {
+            btn.addEventListener('click', () => editarTarefa(btn.dataset.id));
+        });
+        document.querySelectorAll('.excluir-btn').forEach(btn => {
+            btn.addEventListener('click', () => excluirTarefa(btn.dataset.id));
+        });
+        document.querySelectorAll('.comentarios-btn').forEach(btn => {
+            btn.addEventListener('click', () => carregarComentarios(btn.dataset.id));
+        });
+    }
+
+    btnNovaTarefa.addEventListener('click', () => {
+        formTarefa.reset();
+        modalTitulo.innerHTML = '<i class="fas fa-plus-circle me-2"></i> Nova Tarefa';
+        tarefaIdInput.value = '';
+        
+        // Define as datas padrão
+        const today = new Date().toISOString().split('T')[0];
+        const nextWeek = new Date();
+        nextWeek.setDate(nextWeek.getDate() + 7);
+        const nextWeekFormatted = nextWeek.toISOString().split('T')[0];
+        
+        dataInicioInput.value = today;
+        dataConclusaoInput.value = nextWeekFormatted;
+        statusSelect.value = 'Em Andamento';
+    });
+
+    async function editarTarefa(id) {
+        try {
+            const response = await fetch(`/api/tarefas/${id}`);
+            const tarefa = await response.json();
+            
+            modalTitulo.innerHTML = '<i class="fas fa-edit me-2"></i> Editar Tarefa';
+            tarefaIdInput.value = tarefa.id;
+            nomeInput.value = tarefa.nome;
+            custoInput.value = tarefa.custo;
+            dataInicioInput.value = tarefa.data_inicio;
+            dataConclusaoInput.value = tarefa.data_conclusao;
+            statusSelect.value = tarefa.status;
+            descricaoInput.value = tarefa.descricao || '';
+        } catch (error) {
+            console.error('Erro ao editar tarefa:', error);
+            showAlert('danger', 'Erro ao carregar tarefa para edição.');
+        }
+    }
+
+    formTarefa.addEventListener('submit', async (e) => {
+        e.preventDefault();
+
+        const tarefaId = tarefaIdInput.value;
+        const dados = {
+            nome: nomeInput.value,
+            custo: parseFloat(custoInput.value),
+            data_inicio: dataInicioInput.value,
+            data_conclusao: dataConclusaoInput.value,
+            status: statusSelect.value,
+            descricao: descricaoInput.value
+        };
+
+        try {
+            if (tarefaId) {
+                await fetch(`/api/tarefas/${tarefaId}`, {
+                    method: 'PUT',
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify(dados)
+                });
+                showAlert('success', 'Tarefa atualizada com sucesso!');
+            } else {
+                await fetch('/api/tarefas', {
+                    method: 'POST',
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify(dados)
+                });
+                showAlert('success', 'Tarefa criada com sucesso!');
+            }
+
+            formTarefa.reset();
+            bootstrap.Modal.getInstance(document.getElementById('novaTarefaModal')).hide();
+            fetchTarefas();
+        } catch (error) {
+            console.error('Erro ao salvar tarefa:', error);
+            showAlert('danger', 'Erro ao salvar tarefa. Tente novamente.');
+        }
+    });
+
+    async function excluirTarefa(id) {
+        if (confirm('Tem certeza que deseja excluir esta tarefa? Esta ação não pode ser desfeita.')) {
+            try {
+                await fetch(`/api/tarefas/${id}`, {
+                    method: 'DELETE'
+                });
+                showAlert('success', 'Tarefa excluída com sucesso!');
+                fetchTarefas();
+            } catch (error) {
+                console.error('Erro ao excluir tarefa:', error);
+                showAlert('danger', 'Erro ao excluir tarefa. Tente novamente.');
+            }
+        }
+    }
+    
+    // Funções para manipular a API de Comentários
+    // ----------------------------------------
+    const listaComentarios = document.getElementById('lista-comentarios');
+    const formComentarioModal = document.getElementById('form-comentario-modal');
+    const comentarioTarefaIdInputModal = document.getElementById('comentario-tarefa-id-modal');
+    const nomeTarefaComentarioModal = document.getElementById('tarefa-nome-modal');
+
+    async function carregarComentarios(tarefaId) {
+        try {
+            const response = await fetch(`/api/tarefas/${tarefaId}`);
+            const tarefa = await response.json();
+
+            nomeTarefaComentarioModal.textContent = tarefa.nome;
+            listaComentarios.innerHTML = '';
+            
+            if (tarefa.comentarios && tarefa.comentarios.length > 0) {
+                tarefa.comentarios.forEach((comentario, index) => {
+                    const li = document.createElement('li');
+                    li.className = 'comentario-item d-flex justify-content-between align-items-center';
+                    li.innerHTML = `
+                        <div>
+                            <p class="mb-0">${comentario}</p>
+                        </div>
+                    `;
+                    listaComentarios.appendChild(li);
+                });
+            } else {
+                listaComentarios.innerHTML = `
+                    <li class="text-center py-4 text-muted">
+                        <i class="fas fa-comment-slash mb-3" style="font-size: 2rem;"></i>
+                        <p class="mb-0">Nenhum comentário ainda.</p>
+                    </li>
+                `;
+            }
+
+            comentarioTarefaIdInputModal.value = tarefaId;
+        } catch (error) {
+            console.error('Erro ao carregar comentários:', error);
+            showAlert('danger', 'Erro ao carregar comentários. Tente novamente.');
+        }
+    }
+
+    formComentarioModal.addEventListener('submit', async (e) => {
+        e.preventDefault();
+
+        const tarefaId = comentarioTarefaIdInputModal.value;
+        const novoComentario = document.getElementById('novo-comentario-modal').value;
+
+        if (novoComentario.trim() !== '') {
+            try {
+                await fetch(`/api/tarefas/${tarefaId}/comentarios`, {
+                    method: 'POST',
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify({ comentario: novoComentario })
+                });
+                
+                document.getElementById('novo-comentario-modal').value = '';
+                carregarComentarios(tarefaId); // Recarrega os comentários do modal
+                fetchTarefas(); // Atualiza a tabela principal para mostrar a contagem de comentários
+            } catch (error) {
+                console.error('Erro ao adicionar comentário:', error);
+                showAlert('danger', 'Erro ao adicionar comentário. Tente novamente.');
+            }
+        }
+    });
+
+    // Função para mostrar alertas
+    function showAlert(type, message) {
+        const alertDiv = document.createElement('div');
+        alertDiv.className = `alert alert-${type} alert-dismissible fade show position-fixed top-0 end-0 m-3`;
+        alertDiv.style.zIndex = '1100';
+        alertDiv.role = 'alert';
+        alertDiv.innerHTML = `
+            ${message}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        `;
+        
+        document.body.appendChild(alertDiv);
+        
+        setTimeout(() => {
+            alertDiv.classList.remove('show');
+            setTimeout(() => alertDiv.remove(), 150);
+        }, 5000);
+    }
+
+    // Inicializa a página, buscando as tarefas ao carregar
+    fetchTarefas();
+});
+    </script>
+</body>
+</html>
