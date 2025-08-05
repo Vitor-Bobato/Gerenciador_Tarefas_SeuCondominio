@@ -6,7 +6,6 @@
 <body>
     <div class="container">
         <div class="logo">
-            <img src="https://img.icons8.com/ultraviolet/80/task.png" alt="Logo">
             <h1>Gerenciador de Tarefas <span style="color:#1976d2;">Seu Condomínio</span></h1>
         </div>
         <p style="text-align:center;font-size:1.2em;">
