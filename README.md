@@ -24,7 +24,7 @@
         <ul class="tech-list">
             <li><span class="badge">HTML5 &amp; CSS3</span> Estrutura e estilo</li>
             <li><span class="badge">JavaScript</span> Interatividade e dinamicidade</li>
-            <li><span class="badge">Python & Flask</span>Banco de dados relacional</li>
+            <li><span class="badge">Python & Flask</span> Banco de dados relacional</li>
             <li><span class="badge">Bootstrap</span> Layout responsivo</li>
         </ul>
         <h2>🔧 Como Executar o Projeto</h2>
