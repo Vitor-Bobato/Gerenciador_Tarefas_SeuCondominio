@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Gerenciador de Tarefas Seu Condomínio</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            background-color: #f8fafc;
+            margin: 0;
+            padding: 0;
+            color: #222;
+        }
+        .container {
+            max-width: 900px;
+            margin: 40px auto;
+            background: #fff;
+            border-radius: 12px;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.12);
+            padding: 40px 32px;
+        }
+        h1 {
+            color: #2e7d32;
+            text-align: center;
+            margin-bottom: 12px;
+        }
+        h2 {
+            color: #1976d2;
+            margin-top: 32px;
+        }
+        ul {
+            margin-left: 24px;
+        }
+        code {
+            background-color: #e3f2fd;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-size: 1em;
+        }
+        .badge {
+            display: inline-block;
+            background: #e0e0e0;
+            border-radius: 12px;
+            color: #222;
+            padding: 4px 12px;
+            margin-right: 8px;
+            font-size: 0.9em;
+        }
+        .tech-list li {
+            margin-bottom: 6px;
+        }
+        .footer {
+            margin-top: 40px;
+            text-align: center;
+            color: #888;
+            font-size: 0.95em;
+        }
+        a {
+            color: #1565c0;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        .logo {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 24px;
+        }
+        .logo img {
+            width: 56px;
+            margin-right: 12px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="logo">
+            <img src="https://img.icons8.com/ultraviolet/80/task.png" alt="Logo">
+            <h1>Gerenciador de Tarefas <span style="color:#1976d2;">Seu Condomínio</span></h1>
+        </div>
+        <p style="text-align:center;font-size:1.2em;">
+            <b>Simplifique o gerenciamento de tarefas do seu condomínio!</b><br>
+            Sistema web completo para organização, acompanhamento e comunicação das atividades do condomínio.
+        </p>
+        <h2>✨ Funcionalidades Principais</h2>
+        <ul>
+            <li>Cadastro e gerenciamento de tarefas</li>
+            <li>Atribuição de responsáveis e prazos</li>
+            <li>Notificações automáticas por e-mail</li>
+            <li>Controle de status das tarefas (pendente, em andamento, concluída)</li>
+            <li>Dashboard com visão geral das atividades</li>
+            <li>Histórico de tarefas finalizadas</li>
+            <li>Gestão de usuários (síndico, porteiro, moradores, prestadores de serviço)</li>
+        </ul>
+        <h2>🚀 Tecnologias Utilizadas</h2>
+        <ul class="tech-list">
+            <li><span class="badge">PHP</span> Backend, lógica e APIs</li>
+            <li><span class="badge">HTML5 &amp; CSS3</span> Estrutura e estilo</li>
+            <li><span class="badge">JavaScript</span> Interatividade e dinamicidade</li>
+            <li><span class="badge">MySQL</span> Banco de dados relacional</li>
+            <li><span class="badge">Bootstrap</span> Layout responsivo</li>
+        </ul>
+        <h2>🔧 Como Executar o Projeto</h2>
+        <ol>
+            <li>Clone o repositório:<br>
+                <code>git clone https://github.com/Vitor-Bobato/Gerenciador_Tarefas_SeuCondominio.git</code>
+            </li>
+            <li>Configure o ambiente PHP (ex: XAMPP, WAMP ou servidor local Apache).</li>
+            <li>Importe o arquivo do banco de dados <code>database.sql</code> no MySQL.</li>
+            <li>Configure os dados de acesso ao banco no arquivo <code>config.php</code>.</li>
+            <li>Acesse <code>http://localhost/Gerenciador_Tarefas_SeuCondominio</code> no navegador.</li>
+        </ol>
+        <h2>📝 Estrutura do Projeto</h2>
+        <ul>
+            <li><code>/src/</code> - Código fonte principal</li>
+            <li><code>/public/</code> - Arquivos públicos e interface web</li>
+            <li><code>/database/</code> - Scripts de banco de dados</li>
+            <li><code>/docs/</code> - Documentação e manuais</li>
+        </ul>
+        <h2>🙋‍♂️ Contribuição</h2>
+        <ul>
+            <li>Fork o projeto e crie sua branch (<code>git checkout -b feature/nova-funcionalidade</code>)</li>
+            <li>Faça o commit das suas alterações (<code>git commit -m "Minha contribuição"</code>)</li>
+            <li>Envie um pull request 🚀</li>
+        </ul>
+        <h2>📄 Licença</h2>
+        <p>
+            Este projeto está sob licença MIT.<br>
+            Consulte o arquivo <code>LICENSE</code> para mais detalhes.
+        </p>
+        <div class="footer">
+            <hr>
+            <p>
+                Desenvolvido por <b><a href="https://github.com/Vitor-Bobato">Vitor Bobato</a></b> &nbsp;|&nbsp;
+                <a href="https://github.com/Vitor-Bobato/Gerenciador_Tarefas_SeuCondominio">Ver repositório no GitHub</a>
+            </p>
+        </div>
+    </div>
+</body>
+</html>
