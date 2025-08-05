@@ -34,18 +34,11 @@
         <ol>
             <li>Clone o repositório:<br>
                 <code>git clone https://github.com/Vitor-Bobato/Gerenciador_Tarefas_SeuCondominio.git</code>
-            </li>
-            <li>Configure o ambiente PHP (ex: XAMPP, WAMP ou servidor local Apache).</li>
-            <li>Importe o arquivo do banco de dados <code>database.sql</code> no MySQL.</li>
-            <li>Configure os dados de acesso ao banco no arquivo <code>config.php</code>.</li>
-            <li>Acesse <code>http://localhost/Gerenciador_Tarefas_SeuCondominio</code> no navegador.</li>
-        </ol>
         <h2>📝 Estrutura do Projeto</h2>
         <ul>
             <li><code>/src/</code> - Código fonte principal</li>
             <li><code>/public/</code> - Arquivos públicos e interface web</li>
             <li><code>/database/</code> - Scripts de banco de dados</li>
-            <li><code>/docs/</code> - Documentação e manuais</li>
         </ul>
         <h2>🙋‍♂️ Contribuição</h2>
         <ul>
