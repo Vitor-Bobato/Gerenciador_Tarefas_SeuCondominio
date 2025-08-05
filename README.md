@@ -15,19 +15,16 @@
         <h2>✨ Funcionalidades Principais</h2>
         <ul>
             <li>Cadastro e gerenciamento de tarefas</li>
-            <li>Atribuição de responsáveis e prazos</li>
-            <li>Notificações automáticas por e-mail</li>
+            <li>Prazos</li>
             <li>Controle de status das tarefas (pendente, em andamento, concluída)</li>
             <li>Dashboard com visão geral das atividades</li>
             <li>Histórico de tarefas finalizadas</li>
-            <li>Gestão de usuários (síndico, porteiro, moradores, prestadores de serviço)</li>
         </ul>
         <h2>🚀 Tecnologias Utilizadas</h2>
         <ul class="tech-list">
-            <li><span class="badge">PHP</span> Backend, lógica e APIs</li>
             <li><span class="badge">HTML5 &amp; CSS3</span> Estrutura e estilo</li>
             <li><span class="badge">JavaScript</span> Interatividade e dinamicidade</li>
-            <li><span class="badge">MySQL</span> Banco de dados relacional</li>
+            <li><span class="badge">Python & Flask</span>Banco de dados relacional</li>
             <li><span class="badge">Bootstrap</span> Layout responsivo</li>
         </ul>
         <h2>🔧 Como Executar o Projeto</h2>
